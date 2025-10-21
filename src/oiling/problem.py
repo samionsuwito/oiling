@@ -1,4 +1,4 @@
-from solution import Solution
+from .solution import Solution
 
 
 class Problem:
@@ -28,5 +28,6 @@ class Problem:
         # check solution
         for line in self.data:
             if self.solution.run(line[0]) != line[1]:
+                print(f"Failed on input: {line[0]} to produce {line[1]}")
                 return False
         return True
