@@ -1,44 +1,56 @@
 import oiling as oil
 
 
-# From Linguistics Olympiad Training Guide Problem 5.1
-def simple_test():
-    problem = oil.MorphologyProblem()
-    problem.set_goal(
-        "Translate into Zulu 'to paint', 'hunter', 'killers', 'to kill', 'carver', 'to carve'"
+def test_generalized_morphology():
+    rules = [
+        oil.CircumfixRule(
+            name="agent-sg",
+            when={"cat": "agent", "num": "sg"},
+            pre="um",
+            post="i",
+            order=10,
+        ),
+        oil.CircumfixRule(
+            name="agent-pl",
+            when={"cat": "agent", "num": "pl"},
+            pre="aba",
+            post="i",
+            order=10,
+        ),
+        oil.SuffixRule(
+            name="verb-bare",
+            when={"cat": "verb"}, 
+            suffix="a", 
+            order=20
+        ),
+    ]
+    generator = oil.Generator(rules)
+    lexicon = {
+        "paint": oil.Lexeme("paint", "dweb"),
+        "hunt": oil.Lexeme("hunt", "zingel"),
+        "kill": oil.Lexeme("kill", "bulal"),
+        "carve": oil.Lexeme("carve", "baz"),
+    }
+
+    solution = oil.Solution()
+    solution.add_rule(
+        oil.RootedMorphRule("Root-based morphology (general)", generator, lexicon)
     )
+
+    problem = oil.MorphologyProblem()
     data = [
-        ("painter", "umdwebi"),
-        ("hunters", "abazingeli"),
-        ("killer" , "umbulali"),
-        ("painters", "abadwebi"),
-        ("to hunt", "zingela"),
-        ("carvers", "ababazi"),
+        ("to paint", "dweba"),
+        ("hunter", "umzingeli"),
+        ("killers", "ababulali"),
+        ("to kill", "bulala"),
+        ("carver", "umbazi"),
+        ("to carve", "baza"),
     ]
     problem.set_data(data)
-    solution = oil.Solution()
-
-    rule1 = oil.POSRule("Singular Noun")
-    rule1.set_condition("NN")
-    rule1.set_translation(data[0])
-    rule1.set_translation(data[2])
-    solution.add_rule(rule1)
-
-    rule2 = oil.POSRule("Plural Noun")
-    rule2.set_condition("NNS")
-    rule2.set_translation(data[1])
-    rule2.set_translation(data[3])
-    rule2.set_translation(data[5])
-    solution.add_rule(rule2)
-
-    rule3 = oil.POSRule("Verb")
-    rule3.set_condition("VB")
-    rule3.set_translation(data[4])
-    solution.add_rule(rule3)
 
     problem.set_solution(solution)
     assert problem.verify()
 
 
 if __name__ == "__main__":
-    simple_test()
+    test_generalized_morphology()
