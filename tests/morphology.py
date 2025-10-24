@@ -19,23 +19,19 @@ def test_generalized_morphology():
         ),
         oil.SuffixRule(
             name="verb-bare",
-            when={"cat": "verb"}, 
-            suffix="a", 
-            order=20
+            when={"cat": "verb"},
+            suffix="a",
+            order=20,
         ),
     ]
-    generator = oil.Generator(rules)
     lexicon = {
-        "paint": oil.Lexeme("paint", "dweb"),
-        "hunt": oil.Lexeme("hunt", "zingel"),
-        "kill": oil.Lexeme("kill", "bulal"),
-        "carve": oil.Lexeme("carve", "baz"),
+        "paint": oil.Lexeme.create("paint", "dweb"),
+        "hunt": oil.Lexeme.create("hunt", "zingel"),
+        "kill": oil.Lexeme.create("kill", "bulal"),
+        "carve": oil.Lexeme.create("carve", "baz"),
     }
 
-    solution = oil.Solution()
-    solution.add_rule(
-        oil.RootedMorphRule("Root-based morphology (general)", generator, lexicon)
-    )
+    solution = oil.MorphologySolution(rules, lexicon)
 
     problem = oil.MorphologyProblem()
     data = [

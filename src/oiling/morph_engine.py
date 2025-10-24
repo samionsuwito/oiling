@@ -1,8 +1,9 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
 import re
-from typing import Any, Dict, Iterable, List, Protocol
+from dataclasses import dataclass, field
+from typing import Any, Dict, Iterable, List, Mapping, Protocol
+
 
 FeatureBundle = Dict[str, Any]
 
@@ -15,6 +16,26 @@ class Lexeme:
     stem: str
     features: FeatureBundle = field(default_factory=dict)
     irregular: Dict[str, str] = field(default_factory=dict)
+
+    @classmethod
+    def create(
+        cls,
+        lemma: str,
+        stem: str,
+        *,
+        features: FeatureBundle | None = None,
+        irregular: Dict[str, str] | None = None,
+    ) -> Lexeme:
+        """
+        Convenience constructor that mirrors the dataclass signature while making intent explicit.
+        """
+
+        return cls(
+            lemma=lemma,
+            stem=stem,
+            features=features or {},
+            irregular=irregular or {},
+        )
 
 
 class Applies(Protocol):

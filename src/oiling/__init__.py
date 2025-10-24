@@ -1,16 +1,5 @@
-from .morph_engine import (
-    CircumfixRule,
-    FeatureBundle,
-    Generator,
-    Lexeme,
-    MorphRule,
-    PrefixRule,
-    RewriteRule,
-    SuffixRule,
-    TemplateRule,
-)
-from .morph_rule_adapter import RootedMorphRule
-from .morphology import MorphologyProblem
+from .morph_engine import CircumfixRule, FeatureBundle, Generator, Lexeme, MorphRule, PrefixRule, RewriteRule, SuffixRule, TemplateRule
+from .morphology import MorphologyProblem, MorphologySolution
 from .problem import Problem
 from .prompt2features import english_prompt_to_request
 from .solution import Rule, Solution
@@ -24,12 +13,12 @@ __all__ = [
     "Lexeme",
     "FeatureBundle",
     "MorphRule",
+    "MorphologySolution",
     "PrefixRule",
     "SuffixRule",
     "CircumfixRule",
     "TemplateRule",
     "RewriteRule",
-    "RootedMorphRule",
     "english_prompt_to_request",
 ]
 # import nltk
