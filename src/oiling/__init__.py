@@ -1,4 +1,14 @@
-from .morph_engine import CircumfixRule, FeatureBundle, Generator, Lexeme, MorphRule, PrefixRule, RewriteRule, SuffixRule, TemplateRule
+from .morph_engine import (
+    CircumfixRule,
+    FeatureBundle,
+    Generator,
+    Lexeme,
+    MorphRule,
+    PrefixRule,
+    RewriteRule,
+    SuffixRule,
+    TemplateRule,
+)
 from .morphology import MorphologyProblem, MorphologySolution
 from .problem import Problem
 from .prompt2features import english_prompt_to_request
